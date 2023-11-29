@@ -141,7 +141,30 @@ function LogInForm() {
     errorMessage: "",
   });
 
+  function initErrorMessages() {
+    setInputId(changeObj("errorMessage", ""));
+    setInputPw(changeObj("errorMessage", ""));
+  }
+
+  function idCheck() {
+    if (inputId.value == 0) {
+      setInputId(changeObj("errorMessage", "아이디를 입력해주세요."));
+      return false;
+    }
+  }
+
+  function pwCheck() {
+    if (inputPw.value == 0) {
+      setInputPw(changeObj("errorMessage", "비밀번호를 입력해주세요."));
+      return false;
+    }
+  }
+
   function tryLogIn() {
+    initErrorMessages();
+    if (!idCheck()) return false;
+    if (!pwCheck()) return false;
+
     fetch("/api/v1/auth/login", {
       method: "POST",
       headers: {
@@ -160,8 +183,6 @@ function LogInForm() {
       .then(([code, data]) => {
         switch (code) {
           case 202:
-            setInputId(changeObj("errorMessage", ""));
-            setInputPw(changeObj("errorMessage", ""));
             alert("로그인이 완료되었습니다.");
             break;
           case 400:
@@ -234,6 +255,13 @@ function SignUpForm({ setMode }) {
     errorMessage: "",
   });
 
+  function initErrorMessages() {
+    setInputId(changeObj("errorMessage", ""));
+    setInputPw(changeObj("errorMessage", ""));
+    setInputPwCheck(changeObj("errorMessage", ""));
+    setInputNickname(changeObj("errorMessage", ""));
+  }
+
   function idCheck() {
     if (inputId.value == 0) {
       setInputId(changeObj("errorMessage", "아이디를 입력해주세요."));
@@ -246,7 +274,6 @@ function SignUpForm({ setMode }) {
       return false;
     }
 
-    setInputId(changeObj("errorMessage", ""));
     return true;
   }
 
@@ -262,7 +289,6 @@ function SignUpForm({ setMode }) {
       setInputPwCheck(changeObj("value", ""));
       return false;
     } else {
-      setInputPwCheck(changeObj("errorMessage", ""));
       return true;
     }
   }
@@ -279,11 +305,12 @@ function SignUpForm({ setMode }) {
       return false;
     }
 
-    setInputNickname(changeObj("errorMessage", ""));
     return true;
   }
 
   function trySignUp() {
+    initErrorMessages();
+
     if (!idCheck()) return false;
     if (!pwCheck()) return false;
     if (!nicknameCheck()) return false;
