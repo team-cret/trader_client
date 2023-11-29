@@ -1,3 +1,9 @@
 body {
-  margin: 0px;
+  margin: 0;
+  font-family: "NotosansKR";
+  color: #0e2f56;
+}
+
+input {
+  font-family: "NotoSansKR";
 }
