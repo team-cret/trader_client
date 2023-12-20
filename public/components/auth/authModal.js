@@ -151,6 +151,7 @@ function LogInForm() {
       setInputId(changeObj("errorMessage", "아이디를 입력해주세요."));
       return false;
     }
+    return true;
   }
 
   function pwCheck() {
@@ -158,6 +159,11 @@ function LogInForm() {
       setInputPw(changeObj("errorMessage", "비밀번호를 입력해주세요."));
       return false;
     }
+    return true;
+  }
+
+  function saveSession(sessionId) {
+    window.localStorage.setItem("sessionId", sessionId);
   }
 
   function tryLogIn() {
@@ -183,6 +189,7 @@ function LogInForm() {
       .then(([code, data]) => {
         switch (code) {
           case 202:
+            saveSession(data);
             alert("로그인이 완료되었습니다.");
             break;
           case 400:
