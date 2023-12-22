@@ -1,5 +1,6 @@
+import { getSession } from "@/public/api/session";
 import { blue, primary_dark, primary_light, red } from "@/public/assets/color";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function StockListContainer() {
   return (
@@ -73,26 +74,47 @@ function NavigationBox() {
 }
 
 function ListBox_Stock() {
-  const [stockData, setStockData] = useState([
-    {
-      companyName: "A전자",
-      price: "50,000",
-      priceRate: "+1.72%",
-      status: "up",
-    },
-    {
-      companyName: "A전자",
-      price: "50,000",
-      priceRate: "+1.72%",
-      status: "up",
-    },
-    {
-      companyName: "A전자",
-      price: "50,000",
-      priceRate: "+1.72%",
-      status: "up",
-    },
-  ]);
+  const [stockData, setStockData] = useState([]);
+
+  function getStockList() {
+    fetch(`/api/v1/mainpage/allcompany`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        /* [{companyId: string, name: string, stockPrice: int, beforePrice: int}]*/
+        console.log(res);
+        setStockData(
+          res.map((item) => ({
+            companyName: item.name,
+            price: item.stockPrice.toLocaleString("ko-KR"),
+            priceRate:
+              (item.stockPrice - item.beforePrice > 0 ? "+" : "") +
+              ((1 - item.beforePrice / item.stockPrice) * 100)
+                .toFixed(2)
+                .toLocaleString("ko-KR") +
+              "%",
+            status: item.stockPrice - item.beforePrice > 0 ? "up" : "down",
+          }))
+        );
+        console.log(
+          res.map((item) => ({
+            companyName: item.name,
+            price: item.stockPrice,
+            priceRate: (1 - item.beforePrice / item.stockPrice) * 100,
+            status: item.stockPrice - item.beforePrice > 0 ? "up" : "down",
+          }))
+        );
+      });
+  }
+  useEffect(() => {
+    getStockList();
+  }, []);
 
   const [selectedStock, setSelectedStock] = useState(-1);
   function toggleSelectedStock(index) {
