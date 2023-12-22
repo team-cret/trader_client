@@ -2,7 +2,9 @@
 const nextConfig = {
   reactStrictMode: false,
 
-  env: {},
+  env: {
+    TRADER_SERVER_BASE_URL_SOCKET: process.env.TRADER_SERVER_BASE_URL_SOCKET,
+  },
 
   async rewrites() {
     return [
