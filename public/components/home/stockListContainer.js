@@ -1,4 +1,5 @@
-import { primary_dark, primary_light } from "@/public/assets/color";
+import { blue, primary_dark, primary_light, red } from "@/public/assets/color";
+import { useState } from "react";
 
 export default function StockListContainer() {
   return (
@@ -63,6 +64,8 @@ function NavigationBox() {
           font-size: 20px;
           font-weight: 700;
           text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+
+          cursor: pointer;
         }
       `}</style>
     </div>
@@ -70,17 +73,49 @@ function NavigationBox() {
 }
 
 function ListBox_Stock() {
+  const [stockData, setStockData] = useState([
+    {
+      companyName: "A전자",
+      price: "50,000",
+      priceRate: "+1.72%",
+      status: "up",
+    },
+    {
+      companyName: "A전자",
+      price: "50,000",
+      priceRate: "+1.72%",
+      status: "up",
+    },
+    {
+      companyName: "A전자",
+      price: "50,000",
+      priceRate: "+1.72%",
+      status: "up",
+    },
+  ]);
+
+  const [selectedStock, setSelectedStock] = useState(-1);
+  function toggleSelectedStock(index) {
+    if (index === selectedStock) {
+      setSelectedStock(-1);
+      return;
+    }
+    setSelectedStock(index);
+  }
+
   return (
     <div className="container">
-      <div className="listItem">
-        <ListItem />
-      </div>
-      <div className="listItem">
-        <ListItem />
-      </div>
-      <div className="listItem">
-        <ListItem />
-      </div>
+      {stockData.map((stock, index) => {
+        return (
+          <div
+            className="listItem"
+            onClick={() => toggleSelectedStock(index)}
+            key={index}
+          >
+            <ListItem isSelected={index === selectedStock} stockData={stock} />
+          </div>
+        );
+      })}
 
       <style jsx>{`
         .container {
@@ -137,18 +172,52 @@ function ListBox_Order() {
 }
 
 //
-function ListItem() {
+function ListItem({ isSelected, stockData }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  function toggleFavorite(event) {
+    event.stopPropagation();
+    setIsFavorite(!isFavorite);
+  }
+
   return (
-    <div className="container">
-      <div className="favoriteBox"></div>
-      <div className="companyNameBox"></div>
-      <div className="priceBox"></div>
-      <div className="priceRateBox"></div>
+    <div
+      className={
+        "container " +
+        (isSelected ? "containerSelected" : "containerNotSelected")
+      }
+    >
+      <img
+        className="favoriteBox"
+        src={
+          "/assets/icons/favorite/" +
+          (isFavorite ? "on" : "off") +
+          "_" +
+          (isSelected ? "dark" : "light") +
+          ".svg"
+        }
+        alt="즐겨찾기"
+        onClick={toggleFavorite}
+      />
+
+      <div
+        className={
+          "companyNameBox " +
+          (isSelected ? "companyNameSelected" : "companyNameNotSelected")
+        }
+      >
+        {stockData.companyName}
+      </div>
+
+      <div className={`priceBox ${stockData.status}`}>{stockData.price}</div>
+
+      <div className={`priceRateBox ${stockData.status}`}>
+        {stockData.priceRate}
+      </div>
+
       <style jsx>{`
         .container {
           width: 450px;
           height: 63px;
-          background-color: ${primary_dark};
 
           border-radius: 15px;
 
@@ -158,34 +227,69 @@ function ListItem() {
 
           box-sizing: border-box;
           padding: 10px;
+
+          cursor: pointer;
+        }
+        .containerSelected {
+          background-color: ${primary_light};
+          border: 2px solid ${primary_dark};
+        }
+        .containerNotSelected {
+          background-color: ${primary_dark};
         }
 
         .favoriteBox {
           width: 23px;
           height: 23px;
 
-          background-color: ${primary_light};
+          cursor: pointer;
         }
 
         .companyNameBox {
           width: 168px;
           height: 27px;
 
-          background-color: ${primary_light};
+          display: flex;
+          align-items: center;
+
+          font-size: 20px;
+          font-weight: 400;
+        }
+        .companyNameSelected {
+          color: ${primary_dark};
+        }
+        .companyNameNotSelected {
+          color: ${primary_light};
         }
 
         .priceBox {
           width: 98px;
           height: 27px;
 
-          background-color: ${primary_light};
+          display: flex;
+          align-items: center;
+
+          font-size: 20px;
+          font-weight: 400;
         }
 
         .priceRateBox {
           width: 113px;
           height: 27px;
 
-          background-color: ${primary_light};
+          display: flex;
+          align-items: center;
+
+          font-size: 20px;
+          font-weight: 400;
+        }
+
+        .up {
+          color: ${red};
+        }
+
+        .down {
+          color: ${blue};
         }
       `}</style>
     </div>
