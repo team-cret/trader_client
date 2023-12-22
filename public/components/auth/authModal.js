@@ -1,3 +1,4 @@
+import { saveSession } from "@/public/api/session";
 import { primary_dark, primary_light, red } from "@/public/assets/color";
 import Image from "next/image";
 import { useState } from "react";
@@ -162,10 +163,6 @@ function LogInForm() {
     return true;
   }
 
-  function saveSession(sessionId) {
-    window.localStorage.setItem("sessionId", sessionId);
-  }
-
   function tryLogIn() {
     initErrorMessages();
     if (!idCheck()) return false;
@@ -190,7 +187,7 @@ function LogInForm() {
         switch (code) {
           case 202:
             saveSession(data);
-            alert("로그인이 완료되었습니다.");
+            location.href = "/home/homePage";
             break;
           case 400:
             switch (data) {
