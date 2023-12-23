@@ -78,67 +78,67 @@ function ListBox_Stock() {
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
     {
       companyName: "삼성전자",
       price: "80,000",
-      priceRate: "+2.00%",
+      diffRate: "+2.00%",
       status: "up",
     },
   ]);
@@ -160,20 +160,12 @@ function ListBox_Stock() {
           res.map((item) => ({
             companyName: item.name,
             price: item.stockPrice.toLocaleString("ko-KR"),
-            priceRate:
+            diffRate:
               (item.stockPrice - item.beforePrice > 0 ? "+" : "") +
               ((1 - item.beforePrice / item.stockPrice) * 100)
                 .toFixed(2)
                 .toLocaleString("ko-KR") +
               "%",
-            status: item.stockPrice - item.beforePrice > 0 ? "up" : "down",
-          }))
-        );
-        console.log(
-          res.map((item) => ({
-            companyName: item.name,
-            price: item.stockPrice,
-            priceRate: (1 - item.beforePrice / item.stockPrice) * 100,
             status: item.stockPrice - item.beforePrice > 0 ? "up" : "down",
           }))
         );
@@ -301,8 +293,8 @@ function ListItem({ isSelected, stockData }) {
 
       <div className={`priceBox ${stockData.status}`}>{stockData.price}</div>
 
-      <div className={`priceRateBox ${stockData.status}`}>
-        {stockData.priceRate}
+      <div className={`diffRateBox ${stockData.status}`}>
+        {stockData.diffRate}
       </div>
 
       <style jsx>{`
@@ -364,7 +356,7 @@ function ListItem({ isSelected, stockData }) {
           font-weight: 400;
         }
 
-        .priceRateBox {
+        .diffRateBox {
           width: 113px;
           height: 27px;
 
