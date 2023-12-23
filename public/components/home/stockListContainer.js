@@ -74,7 +74,74 @@ function NavigationBox() {
 }
 
 function ListBox_Stock() {
-  const [stockData, setStockData] = useState([]);
+  const [stockData, setStockData] = useState([
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+    {
+      companyName: "삼성전자",
+      price: "80,000",
+      priceRate: "+2.00%",
+      status: "up",
+    },
+  ]);
 
   function getStockList() {
     fetch(`/api/v1/mainpage/allcompany`, {
@@ -150,6 +217,8 @@ function ListBox_Stock() {
           flex-direction: column;
           justify-content: start;
           align-items: center;
+
+          overflow-y: scroll;
         }
 
         .listItem {
