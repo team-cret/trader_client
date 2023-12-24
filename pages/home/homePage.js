@@ -3,6 +3,7 @@ import { tryWebSocketOpen } from "@/public/api/webSocket";
 import { primary_light } from "@/public/assets/color";
 import ChartContainer from "@/public/components/home/chartContainer";
 import NavigationBar from "@/public/components/home/navgationBar";
+import PriceContainer from "@/public/components/home/priceContainer";
 import StockListContainer from "@/public/components/home/stockListContainer";
 import { useEffect } from "react";
 
@@ -19,6 +20,7 @@ export default function HomePage() {
       <NavigationBar />
       <StockListContainer />
       <ChartContainer />
+      <PriceContainer />
       <style jsx>{`
         .container {
           width: 100vw;
