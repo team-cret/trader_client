@@ -50,8 +50,10 @@ export default function PriceContainer() {
   return (
     <div className="container">
       <div className="innerBox">
-        {priceInfo.infos.map((info) => {
-          return <PriceBox info={info} totAmount={priceInfo.totAmount} />;
+        {priceInfo.infos.map((info, ind) => {
+          return (
+            <PriceBox key={ind} info={info} totAmount={priceInfo.totAmount} />
+          );
         })}
       </div>
       <style jsx>{`
