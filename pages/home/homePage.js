@@ -5,6 +5,7 @@ import ChartContainer from "@/public/components/home/chartContainer";
 import NavigationBar from "@/public/components/home/navgationBar";
 import PriceContainer from "@/public/components/home/priceContainer";
 import StockListContainer from "@/public/components/home/stockListContainer";
+import TradeContainer from "@/public/components/home/tradeContainer";
 import { useEffect } from "react";
 
 export default function HomePage() {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <StockListContainer />
       <ChartContainer />
       <PriceContainer />
+      <TradeContainer />
       <style jsx>{`
         .container {
           width: 100vw;
