@@ -316,6 +316,7 @@ function ListItem({ isSelected, stockData }) {
         .containerSelected {
           background-color: ${primary_light};
           border: 2px solid ${primary_dark};
+          box-sizing: border-box;
         }
         .containerNotSelected {
           background-color: ${primary_dark};
